@@ -1,10 +1,10 @@
-import sys
+from sys import argv
 
-def main(args=[]):
+def main():
     T = 0
     A = 0
     e = []
-    with open(args[0], "r") as data:
+    with open(argv[1], "r") as data:
         epsilon = 0
         for line in data:
             if "call to" in line:
@@ -16,6 +16,8 @@ def main(args=[]):
                 t = float(inline[0].strip())
                 a = int(inline[1].strip())
                 epsilon = epsilon + (((t - T) * (A + a)) / 2)
+                A = a
+                T = t
             except:
                 continue
 
@@ -26,6 +28,4 @@ def main(args=[]):
         print(str(i)+"\t|\t"+str(ep))
 
 if __name__ == "__main__":
-    args = sys.argv
-    args.pop(0)
-    main(args)
+    main()
