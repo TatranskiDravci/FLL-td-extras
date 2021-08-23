@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-import sys
+from sys import argv
 import numpy as np
 import matplotlib.pyplot as plt
 
-def main(args=[]):
+def main():
     extracted = []
-    with open(args[0], "r") as data:
+    with open(argv[1], "r") as data:
         callnum = -1
         count = 0
         for line in data:
@@ -14,25 +14,18 @@ def main(args=[]):
                 callnum += 1
                 count = 0
                 continue
-            if callnum == int(args[1]):
+            if callnum == int(argv[2]):
                 count += 1
                 inline = line.split(" ")
                 for i in range(len(inline)):
-                    try:
-                        inline[i] = int(inline[i].strip())
-                    except:
-                        inline[i] = float(inline[i].strip())
+                    inline[i] = float(inline[i].strip())
                 inline.insert(0, count)
-                extracted.append(
-                    inline
-                )
+                extracted.append(inline)
 
     npext = np.array(extracted)
-    plt.plot(npext[:,int(args[2])], npext[:,int(args[3])])
+    plt.plot(npext[:,int(argv[3])], npext[:,int(argv[4])])
     plt.show()
 
 
 if __name__ == "__main__":
-    args = sys.argv
-    args.pop(0)
-    main(args)
+    main()

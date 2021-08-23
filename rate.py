@@ -5,29 +5,34 @@ from sys import argv
 def main():
     T = 0
     A = 0
-    e = []
+    v = []
     with open(argv[1], "r") as data:
-        epsilon = 0
+        avgr = 0
+        count = 1
         for line in data:
             if "call to" in line:
-                e.append(epsilon)
-                epsilon = 0
+                v.append(avgr / count)
+                avgr = 0
+                count = 1
                 continue
             try:
                 inline = line.split(" ")
                 t = float(inline[0].strip())
                 a = int(inline[1].strip())
-                epsilon += ((t - T) * (A + a)) / 2
+
+                avgr += abs((a - A) / (t - T))
+                count += 1
+
                 A = a
                 T = t
             except:
                 continue
 
-    print("CALL:\t|\tEPSILON:")
+    print("CALL:\t|\tRATE:")
     i = 0
-    for ep in e:
+    for r in v:
         i += 1
-        print(str(i)+"\t|\t"+str(ep))
+        print(str(i)+"\t|\t"+str(r))
 
 if __name__ == "__main__":
     main()
