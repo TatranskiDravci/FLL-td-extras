@@ -1,6 +1,3 @@
-# FLL-td-extras
-Testing utilities
-
 # graph_data.py
 Minimal robot output data visualizer
 
